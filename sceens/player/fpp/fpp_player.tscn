@@ -1,0 +1,31 @@
+[gd_scene load_steps=7 format=3 uid="uid://dsxcmx6i5jb6"]
+
+[ext_resource type="Script" uid="uid://do7hkgw43yb8f" path="res://scripts/player/fpp/fpp_movement.gd" id="1_ohldi"]
+[ext_resource type="PackedScene" uid="uid://c6j3dr3ufqew2" path="res://sceens/hud/hud.tscn" id="1_vo5g1"]
+[ext_resource type="Script" uid="uid://l5bi4kpli6wt" path="res://scripts/player/fpp/fpp_camera.gd" id="3_iid0l"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kmaj2"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kmaj2"]
+albedo_color = Color(1, 0.290196, 1, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ky7la"]
+material = SubResource("StandardMaterial3D_kmaj2")
+radial_segments = 16
+
+[node name="FppPlayer" type="CharacterBody3D"]
+script = ExtResource("1_ohldi")
+
+[node name="HUD" parent="." instance=ExtResource("1_vo5g1")]
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_kmaj2")
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_ky7la")
+
+[node name="Head" type="Node3D" parent="."]
+script = ExtResource("3_iid0l")
+
+[node name="Camera" type="Camera3D" parent="Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)

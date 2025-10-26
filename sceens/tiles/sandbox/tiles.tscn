@@ -1,0 +1,22 @@
+[gd_scene load_steps=7 format=3 uid="uid://byexwelp6b4ro"]
+
+[ext_resource type="PackedScene" uid="uid://sqspg48nf8q3" path="res://models/sandbox/Block-col.glb" id="1_cej24"]
+[ext_resource type="PackedScene" uid="uid://y3m5o67cp7i2" path="res://models/sandbox/Cone-col.glb" id="2_baxmu"]
+[ext_resource type="PackedScene" uid="uid://dg3ckdn2rvbla" path="res://models/sandbox/CubeRounded-col.glb" id="3_aoeee"]
+[ext_resource type="PackedScene" uid="uid://byn1x7fhyv454" path="res://models/sandbox/Cylinder-col.glb" id="4_ps7lt"]
+[ext_resource type="PackedScene" uid="uid://cvj7seqfd3osh" path="res://models/sandbox/Plate-col.glb" id="5_ej5t3"]
+[ext_resource type="PackedScene" uid="uid://chwwkuden41tx" path="res://models/sandbox/Sphere-col.glb" id="6_fp5ix"]
+
+[node name="Tiles" type="Node3D"]
+
+[node name="Block-col2" parent="." instance=ExtResource("1_cej24")]
+
+[node name="Cone-col2" parent="." instance=ExtResource("2_baxmu")]
+
+[node name="CubeRounded-col2" parent="." instance=ExtResource("3_aoeee")]
+
+[node name="Cylinder-col2" parent="." instance=ExtResource("4_ps7lt")]
+
+[node name="Plate-col2" parent="." instance=ExtResource("5_ej5t3")]
+
+[node name="Sphere-col2" parent="." instance=ExtResource("6_fp5ix")]

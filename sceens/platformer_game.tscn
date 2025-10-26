@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://crm7eo5lbo8cu"]
+
+[ext_resource type="Script" uid="uid://umj4o6pf4iol" path="res://scripts/world/environment.gd" id="1_s2y44"]
+
+[node name="PlatformerGame" type="Node2D"]
+script = ExtResource("1_s2y44")
