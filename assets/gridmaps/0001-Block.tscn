@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://baknyisc4vw7v"]
+
+[node name="VP_0001-Block" type="SubViewport"]
+transparent_bg = true
+size = Vector2i(256, 256)
+render_target_update_mode = 4

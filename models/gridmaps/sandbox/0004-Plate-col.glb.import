@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://2qq5w2t0r6yp"
-path="res://.godot/imported/0004-Plate-col.glb-36dff8a0692d0b25abfa921465f04334.scn"
+path="res://.godot/imported/0004-Plate-col.glb-4f854d0bcf87a3c59664bfae3d222780.scn"
 
 [deps]
 
-source_file="res://models/sandbox/0004-Plate-col.glb"
-dest_files=["res://.godot/imported/0004-Plate-col.glb-36dff8a0692d0b25abfa921465f04334.scn"]
+source_file="res://models/gridmaps/sandbox/0004-Plate-col.glb"
+dest_files=["res://.godot/imported/0004-Plate-col.glb-4f854d0bcf87a3c59664bfae3d222780.scn"]
 
 [params]
 

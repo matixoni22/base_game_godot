@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bqqo3l6vp2jo1"]
+
+[node name="VP_0005-Sphere" type="SubViewport"]
+transparent_bg = true
+size = Vector2i(256, 256)
+render_target_update_mode = 4

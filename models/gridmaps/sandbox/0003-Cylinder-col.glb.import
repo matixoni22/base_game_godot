@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cg174j8swhrpx"
-path="res://.godot/imported/0002-Cone-col.glb-23f54879b8cd36b27777c5f5cd2e729d.scn"
+uid="uid://dn7gq020scete"
+path="res://.godot/imported/0003-Cylinder-col.glb-d563b1ae47652fe7a9de0a07e04a4515.scn"
 
 [deps]
 
-source_file="res://models/sandbox/0002-Cone-col.glb"
-dest_files=["res://.godot/imported/0002-Cone-col.glb-23f54879b8cd36b27777c5f5cd2e729d.scn"]
+source_file="res://models/gridmaps/sandbox/0003-Cylinder-col.glb"
+dest_files=["res://.godot/imported/0003-Cylinder-col.glb-d563b1ae47652fe7a9de0a07e04a4515.scn"]
 
 [params]
 
