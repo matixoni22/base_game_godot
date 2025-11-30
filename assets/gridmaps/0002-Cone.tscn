@@ -1,6 +1,0 @@
-[gd_scene format=3 uid="uid://bbi447vsd2a2r"]
-
-[node name="VP_0002-Cone" type="SubViewport"]
-transparent_bg = true
-size = Vector2i(256, 256)
-render_target_update_mode = 4

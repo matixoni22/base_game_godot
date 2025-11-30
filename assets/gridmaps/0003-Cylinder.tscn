@@ -1,6 +1,0 @@
-[gd_scene format=3 uid="uid://d3v2na66g3h4j"]
-
-[node name="VP_0003-Cylinder" type="SubViewport"]
-transparent_bg = true
-size = Vector2i(256, 256)
-render_target_update_mode = 4

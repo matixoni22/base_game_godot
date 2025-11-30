@@ -1,0 +1,67 @@
+[gd_scene load_steps=2 format=3 uid="uid://7eu3shewxa0l"]
+
+[ext_resource type="Script" uid="uid://b4kkuv0cyc1ki" path="res://tools/build_gridmaps/build_gridmaps_gui.gd" id="1_l67l4"]
+
+[node name="GUI" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_l67l4")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="ImportPath" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/ImportPath"]
+layout_mode = 2
+text = "Import:"
+
+[node name="ImportInput" type="LineEdit" parent="VBoxContainer/ImportPath"]
+layout_mode = 2
+theme_override_constants/minimum_character_width = 30
+
+[node name="ExportPath" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/ExportPath"]
+layout_mode = 2
+text = "Export:"
+
+[node name="ExportInput" type="LineEdit" parent="VBoxContainer/ExportPath"]
+layout_mode = 2
+theme_override_constants/minimum_character_width = 30
+
+[node name="IsSceneGenerated" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/IsSceneGenerated"]
+layout_mode = 2
+text = "Generate preview scene:"
+
+[node name="IsPreviewSceneInput" type="CheckButton" parent="VBoxContainer/IsSceneGenerated"]
+layout_mode = 2
+
+[node name="IsPeviewImageGenerated" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/IsPeviewImageGenerated"]
+layout_mode = 2
+text = "Generate preview image:"
+
+[node name="IsPreviewImageInput" type="CheckButton" parent="VBoxContainer/IsPeviewImageGenerated"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="GenerateButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Generate"

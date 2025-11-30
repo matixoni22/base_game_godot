@@ -3,22 +3,54 @@
 class_name BuildGridmaps
 extends EditorScript
 
-var rendering_scene = "res://sceens/rendering/rendering_3d.tscn"
-var models_folder = "res://models/gridmaps/"
-var gridmaps_folder = "res://assets/gridmaps/"
+var gui = preload("res://tools/build_gridmaps/build_gridmaps_gui.tscn")
 
+@export var rendering_scene = "res://sceens/rendering/rendering_3d.tscn"
+@export var models_folder = "res://models/gridmaps/"
+@export var gridmaps_folder = "res://assets/gridmaps/"
+@export var is_preview_scene_generated : bool = false
+@export var is_preview_image_generated : bool  = false
+
+signal wait_on_generated_gui
 signal await_to_render
 
 var scene: Node
 var tree: SceneTree
 
 # Called when the script is executed (using File -> Run in Script Editor).
-func _run() -> void:
-	#Initialize
+func _run() -> void:	
+	#Create GUI
+	var gui_window := Window.new()
+	gui_window.close_requested.connect(func():
+		gui_window.queue_free()
+		pass
+	)
+	get_editor_interface().popup_dialog(gui_window, Rect2(Vector2(100,100), Vector2(400,200)))
+	var gui_scene = gui.instantiate()
+	gui_window.add_child(gui_scene)
+	(gui_scene.import_input as LineEdit).text = models_folder
+	(gui_scene.export_input as LineEdit).text = gridmaps_folder
+	(gui_scene.is_preview_scene_input as CheckButton).button_pressed = is_preview_scene_generated
+	(gui_scene.is_preview_image_input as CheckButton).button_pressed = is_preview_image_generated
+	gui_scene.generated.connect(func():
+		wait_on_generated_gui.emit();	
+	)
+	(gui_scene.generate_button as Button).grab_focus()
+	
+	await wait_on_generated_gui
+	
+	#Initialize rendering scene
 	get_editor_interface().open_scene_from_path(rendering_scene)
 	scene = get_scene()
 	tree = scene.get_tree()
 	
+	#Get input data
+	models_folder = gui_scene.import_input.text
+	gridmaps_folder = gui_scene.export_input.text
+	is_preview_scene_generated = (gui_scene.is_preview_scene_input as CheckButton).button_pressed
+	is_preview_image_generated = (gui_scene.is_preview_image_input as CheckButton).button_pressed
+#	
+	#Do wrok
 	var models_dir := DirAccess.open(models_folder)
 	if !models_dir: 
 		print("Folder %s not found" % models_folder)
@@ -46,6 +78,7 @@ func _run() -> void:
 		print("Creating new mesh library %s..." % mesh_lib_path)
 		var mesh_lib := await create_mesh_library_from_scene(gridmap_scene)
 		ResourceSaver.save(mesh_lib, mesh_lib_path)
+	gui_window.queue_free()
 	pass
 	
 func create_new_gridmap_scene(scene_path: String, scene_objects: Array[String]) -> PackedScene:
@@ -147,35 +180,43 @@ func generate_mesh_preview(mesh: Mesh, name: String) -> Texture2D:
 	cam.owner = scene
 	
 	# Generate sceen - optional
-	var vp_path = gridmaps_folder + "%s.tscn" % name
-	print("saving scene %s..." % vp_path)
-	var packed_scene := PackedScene.new()
-	packed_scene.resource_name = "PackedScene_" + name
-	packed_scene.pack(vp)
-	ResourceSaver.save(packed_scene, vp_path)
-	print("...saved!")
-	await wait(0.5)
+	if is_preview_scene_generated == true:
+		var vp_path = gridmaps_folder + "%s.tscn" % name
+		print("saving preview scene %s..." % vp_path)
+		var packed_scene := PackedScene.new()
+		packed_scene.resource_name = "PackedScene_" + name
+		packed_scene.pack(vp)
+		ResourceSaver.save(packed_scene, vp_path)
+		print("...saved!")
+	
+	await wait_on_root(tree.root, 0.1)
 	print("...rendered!")
+	
+	#Define image
 	var tex = vp.get_texture()
 	var img_tex := ImageTexture.new()
 	var img := tex.get_image()
 	img_tex.set_image(img)
-	var img_path = gridmaps_folder + "%s.png" % name
-	print("saving preview %s..." % img_path)
-	img.save_png(img_path)
-	print("...saved!")
+	
+	if is_preview_image_generated == true:
+		var img_path = gridmaps_folder + "%s.png" % name
+		print("saving preview image %s..." % img_path)
+		img.save_png(img_path)
+		print("...saved!")
+
+	#Clean
 	vp.queue_free()
 	scene.remove_child(vp)
+	
 	return img_tex
 
-
-func wait(sec: float) -> void:
+func wait_on_root(root: Window, sec: float) -> void:
 	var timer := Timer.new()
-	timer.wait_time = 0.5
+	timer.wait_time = sec
 	timer.one_shot = true
 	timer.autostart = true
-	tree.root.add_child(timer)
-	timer.owner = tree.root
+	root.add_child(timer)
+	timer.owner = root
 	timer.timeout.connect(func() ->  void: await_to_render.emit())
 	await await_to_render
 	timer.queue_free()
