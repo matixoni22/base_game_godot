@@ -12,12 +12,16 @@ config_version=5
 
 config/name="BaseGameGodot"
 run/main_scene="uid://b7ddora50l5uk"
-config/features=PackedStringArray("4.5", "GL Compatibility")
+config/features=PackedStringArray("4.5", "C#", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
 
 CyclopsAutoload="*res://addons/cyclops_level_builder/cyclops_global_scene.tscn"
+
+[dotnet]
+
+project/assembly_name="BaseGameGodot"
 
 [editor_plugins]
 

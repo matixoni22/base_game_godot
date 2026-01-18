@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://7eu3shewxa0l"]
 
-[ext_resource type="Script" uid="uid://b4kkuv0cyc1ki" path="res://tools/build_gridmaps/build_gridmaps_gui.gd" id="1_l67l4"]
+[ext_resource type="Script" uid="uid://bove3xcs63jo7" path="res://tools/build_gridmaps/BuildGridmapsGui.cs" id="1_l67l4"]
 
 [node name="GUI" type="MarginContainer"]
 anchors_preset = 15

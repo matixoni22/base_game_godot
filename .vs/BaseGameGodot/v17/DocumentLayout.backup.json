@@ -1,0 +1,54 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Mateusz\\Desktop\\Projects\\Games\\base_game_godot\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{FD221ED6-6E41-4B71-A3ED-567781AD92F8}|BaseGameGodot.csproj|c:\\users\\mateusz\\desktop\\projects\\games\\base_game_godot\\tools\\build_gridmaps_net\\build_gridmaps_net.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FD221ED6-6E41-4B71-A3ED-567781AD92F8}|BaseGameGodot.csproj|solutionrelative:tools\\build_gridmaps_net\\build_gridmaps_net.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FD221ED6-6E41-4B71-A3ED-567781AD92F8}|BaseGameGodot.csproj|c:\\users\\mateusz\\desktop\\projects\\games\\base_game_godot\\tools\\build_gridmaps_net\\build_gridmaps_gui_net.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FD221ED6-6E41-4B71-A3ED-567781AD92F8}|BaseGameGodot.csproj|solutionrelative:tools\\build_gridmaps_net\\build_gridmaps_gui_net.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "build_gridmaps_net.cs",
+              "DocumentMoniker": "C:\\Users\\Mateusz\\Desktop\\Projects\\Games\\base_game_godot\\tools\\build_gridmaps_net\\build_gridmaps_net.cs",
+              "RelativeDocumentMoniker": "tools\\build_gridmaps_net\\build_gridmaps_net.cs",
+              "ToolTip": "C:\\Users\\Mateusz\\Desktop\\Projects\\Games\\base_game_godot\\tools\\build_gridmaps_net\\build_gridmaps_net.cs",
+              "RelativeToolTip": "tools\\build_gridmaps_net\\build_gridmaps_net.cs",
+              "ViewState": "AgIAAFoAAAAAAAAAAADwv9wAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-14T17:41:34.066Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "build_gridmaps_gui_net.cs",
+              "DocumentMoniker": "C:\\Users\\Mateusz\\Desktop\\Projects\\Games\\base_game_godot\\tools\\build_gridmaps_net\\build_gridmaps_gui_net.cs",
+              "RelativeDocumentMoniker": "tools\\build_gridmaps_net\\build_gridmaps_gui_net.cs",
+              "ToolTip": "C:\\Users\\Mateusz\\Desktop\\Projects\\Games\\base_game_godot\\tools\\build_gridmaps_net\\build_gridmaps_gui_net.cs",
+              "RelativeToolTip": "tools\\build_gridmaps_net\\build_gridmaps_gui_net.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-14T17:41:33.075Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
