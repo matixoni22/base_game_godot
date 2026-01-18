@@ -9,19 +9,18 @@ using System.Threading.Tasks;
 [GlobalClass]
 public partial class BuildGridmaps : EditorScript
 {
-	private BuildGridmapsGui _gui = GD.Load<BuildGridmapsGui>("res://tools/build_gridmaps/build_gridmaps_gui.tscn");
-	private PackedScene gui =
-		GD.Load<PackedScene>("res://tools/build_gridmaps/build_gridmaps_gui.tscn");
+	[Signal] public delegate void WaitOnGeneratedGuiEventHandler();
+	[Signal] public delegate void WaitToRenderEventHandler();
+	
+	[Export] public string RenderingScene = "res://sceens/rendering/rendering_3d.tscn";
+	[Export] public string ModelsFolder = "res://models/gridmaps/";
+	[Export] public string GridmapsFolder = "res://assets/gridmaps/";
+	[Export] public bool IsPreviewSceneGenerated = false;
+	[Export] public bool IsPreviewImageGenerated = false;
+	[Export] public float GeneratingTimePerEachModelSeconds = 0.1f;
 
-	[Export] public string rendering_scene = "res://sceens/rendering/rendering_3d.tscn";
-	[Export] public string models_folder = "res://models/gridmaps/";
-	[Export] public string gridmaps_folder = "res://assets/gridmaps/";
-	[Export] public bool is_preview_scene_generated = false;
-	[Export] public bool is_preview_image_generated = false;
 
-	[Signal] public delegate void wait_on_generated_guiEventHandler();
-	[Signal] public delegate void await_to_renderEventHandler();
-
+	private PackedScene gui = GD.Load<PackedScene>("res://tools/build_gridmaps/BuildGridmapsGui.tscn");
 	private Node? scene;
 	private SceneTree? tree;
 
@@ -38,50 +37,47 @@ public partial class BuildGridmaps : EditorScript
 			new Rect2I(new Vector2I(100, 100), new Vector2I(400, 200))
 		);
 
-		var guiScene = gui.Instantiate();
+		var guiScene = gui.Instantiate<BuildGridmapsGui>();
 		guiWindow.AddChild(guiScene);
 
 		// Load default values
-		guiScene.GetNode<LineEdit>("VBoxContainer/ImportPath/ImportInput").Text = models_folder;
-		guiScene.GetNode<LineEdit>("export_input").Text = gridmaps_folder;
-		guiScene.GetNode<CheckButton>("is_preview_scene_input").ButtonPressed =
-			is_preview_scene_generated;
-		guiScene.GetNode<CheckButton>("is_preview_image_input").ButtonPressed =
-			is_preview_image_generated;
+		guiScene.ImportInput.Text = ModelsFolder;
+		guiScene.ExportInput.Text = GridmapsFolder;
+		guiScene.IsPreviewSceneInput.ButtonPressed = IsPreviewSceneGenerated;
+		guiScene.IsPreviewImageInput.ButtonPressed = IsPreviewImageGenerated;
+		guiScene.GeneratingTimePerEachInput.Text = GeneratingTimePerEachModelSeconds.ToString();
+		guiScene.GenerateButton.GrabFocus();
 
 		guiScene.Connect(
-			"generated",
-			Callable.From(() => EmitSignal(SignalName.wait_on_generated_gui))
+			BuildGridmapsGui.SignalName.Generated,
+			Callable.From(() => EmitSignal(SignalName.WaitOnGeneratedGui))
 		);
 
-		guiScene.GetNode<Button>("generate_button").GrabFocus();
-
-		await ToSignal(this, SignalName.wait_on_generated_gui);
+		await ToSignal(this, SignalName.WaitOnGeneratedGui);
 
 		// Initialize rendering scene
-		GetEditorInterface().OpenSceneFromPath(rendering_scene);
+		GetEditorInterface().OpenSceneFromPath(RenderingScene);
 		scene = GetScene();
 		tree = scene.GetTree();
 
 		// Read inputs
-		models_folder = guiScene.GetNode<LineEdit>("import_input").Text;
-		gridmaps_folder = guiScene.GetNode<LineEdit>("export_input").Text;
-		is_preview_scene_generated =
-			guiScene.GetNode<CheckButton>("is_preview_scene_input").ButtonPressed;
-		is_preview_image_generated =
-			guiScene.GetNode<CheckButton>("is_preview_image_input").ButtonPressed;
+		ModelsFolder = guiScene.ImportInput.Text;
+		GridmapsFolder = guiScene.ExportInput.Text;
+		GeneratingTimePerEachModelSeconds = float.Parse(guiScene.GeneratingTimePerEachInput.Text);
+		IsPreviewSceneGenerated = guiScene.IsPreviewSceneInput.ButtonPressed;
+		IsPreviewImageGenerated = guiScene.IsPreviewImageInput.ButtonPressed;
 
 		// Work
-		var modelsDir = DirAccess.Open(models_folder);
+		var modelsDir = DirAccess.Open(ModelsFolder);
 		if (modelsDir == null)
 		{
-			GD.Print($"Folder {models_folder} not found");
+			GD.Print($"Folder {ModelsFolder} not found");
 			return;
 		}
 
 		foreach (string dir in modelsDir.GetDirectories())
 		{
-			var fullDirPath = models_folder + dir;
+			var fullDirPath = ModelsFolder + dir;
 			var sceneDir = DirAccess.Open(fullDirPath);
 			if (sceneDir == null) continue;
 
@@ -103,7 +99,7 @@ public partial class BuildGridmaps : EditorScript
 
 			gridmapScene = CreateNewGridmapScene(scenePath, sceneFiles);
 
-			var meshLibPath = $"{gridmaps_folder}_{dir}.tres";
+			var meshLibPath = $"{GridmapsFolder}_{dir}.tres";
 			GD.Print($"Creating new mesh library {meshLibPath}...");
 
 			var meshLib = await CreateMeshLibraryFromScene(gridmapScene);
@@ -221,21 +217,21 @@ public partial class BuildGridmaps : EditorScript
 		};
 		vp.AddChild(cam);
 
-		if (is_preview_scene_generated)
+		if (IsPreviewSceneGenerated)
 		{
-			var vpPath = $"{gridmaps_folder}{name}.tscn";
+			var vpPath = $"{GridmapsFolder}{name}.tscn";
 			var ps = new PackedScene();
 			ps.Pack(vp);
 			ResourceSaver.Save(ps, vpPath);
 		}
 
-		await WaitOnRoot(tree!.Root, 0.1f);
+		await WaitOnRoot(tree!.Root, GeneratingTimePerEachModelSeconds);
 
 		var img = vp.GetTexture().GetImage();
 		var tex = ImageTexture.CreateFromImage(img);
 
-		if (is_preview_image_generated)
-			img.SavePng($"{gridmaps_folder}{name}.png");
+		if (IsPreviewImageGenerated)
+			img.SavePng($"{GridmapsFolder}{name}.png");
 
 		vp.QueueFree();
 		return tex;
@@ -251,9 +247,9 @@ public partial class BuildGridmaps : EditorScript
 		};
 
 		root.AddChild(timer);
-		timer.Timeout += () => EmitSignal(SignalName.await_to_render);
+		timer.Timeout += () => EmitSignal(SignalName.WaitToRender);
 
-		await ToSignal(this, SignalName.await_to_render);
+		await ToSignal(this, SignalName.WaitToRender);
 		timer.QueueFree();
 	}
 }
