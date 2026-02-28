@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://b7ddora50l5uk"]
 
-[ext_resource type="Script" uid="uid://umj4o6pf4iol" path="res://scripts/world/environment.gd" id="1_s4h0i"]
+[ext_resource type="Script" uid="uid://dtwbvbn40u3a7" path="res://scripts/world/WorldEnvironmentLoader.cs" id="1_s4h0i"]
 [ext_resource type="PackedScene" uid="uid://dsxcmx6i5jb6" path="res://sceens/player/fpp/fpp_player.tscn" id="2_nh1be"]
 [ext_resource type="MeshLibrary" uid="uid://bwwgjx7cac2l3" path="res://assets/gridmaps/_sandbox.tres" id="4_oj1l3"]
 

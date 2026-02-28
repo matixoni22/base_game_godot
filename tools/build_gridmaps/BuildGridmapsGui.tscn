@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bove3xcs63jo7" path="res://tools/build_gridmaps/BuildGridmapsGui.cs" id="1_l67l4"]
 
-[node name="GUI" type="MarginContainer" node_paths=PackedStringArray("ImportInput", "ExportInput", "IsPreviewSceneInput", "IsPreviewImageInput", "GenerateButton")]
+[node name="GUI" type="MarginContainer" node_paths=PackedStringArray("ImportInput", "ExportInput", "GeneratingTimePerEachInput", "IsPreviewSceneInput", "IsPreviewImageInput", "GenerateButton")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -13,6 +13,7 @@ size_flags_vertical = 3
 script = ExtResource("1_l67l4")
 ImportInput = NodePath("VBoxContainer/ImportPath/ImportInput")
 ExportInput = NodePath("VBoxContainer/ExportPath/ExportInput")
+GeneratingTimePerEachInput = NodePath("VBoxContainer/GeneratingTimePerEach/GeneratingTimePerEachInput")
 IsPreviewSceneInput = NodePath("VBoxContainer/IsSceneGenerated/IsPreviewSceneInput")
 IsPreviewImageInput = NodePath("VBoxContainer/IsPeviewImageGenerated/IsPreviewImageInput")
 GenerateButton = NodePath("VBoxContainer/HBoxContainer/GenerateButton")
