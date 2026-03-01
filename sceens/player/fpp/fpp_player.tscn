@@ -14,8 +14,9 @@ radial_segments = 16
 
 [sub_resource type="ImageTexture" id="ImageTexture_ohldi"]
 
-[node name="FppPlayer" type="CharacterBody3D"]
+[node name="FppPlayer" type="CharacterBody3D" node_paths=PackedStringArray("SprintBar")]
 script = ExtResource("1_ohldi")
+SprintBar = NodePath("SprintBar")
 
 [node name="Collision" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_kmaj2")

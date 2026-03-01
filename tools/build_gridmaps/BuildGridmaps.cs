@@ -11,7 +11,7 @@ public partial class BuildGridmaps : EditorScript
 	[Signal] public delegate void WaitOnGeneratedGuiEventHandler();
 	[Signal] public delegate void WaitToRenderEventHandler();
 	
-	[Export] public string RenderingScene = "res://sceens/rendering/rendering_3d.tscn";
+	[Export] public string RenderingScene = "res://tools/build_gridmaps/rendering_3d.tscn";
 	[Export] public string ModelsFolder = "res://models/gridmaps/";
 	[Export] public string GridmapsFolder = "res://assets/gridmaps/";
 	[Export] public bool IsPreviewSceneGenerated = false;
